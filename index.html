@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quizly – Test Your Knowledge</title>
+<style>
+:root{--bg:#f5f4ff;--ink:#20213a;--muted:#777991;--purple:#7057e8;--purple2:#8d78f5;--line:#e8e6f4;--white:#fff;--green:#169b69;--red:#df5264;--soft:#f6f3ff;--hdr:#ffffffc9;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14132a;--ink:#ecebfa;--muted:#a3a2bd;--line:#34325a;--white:#1d1c3a;--soft:#2a2750;--hdr:#1d1c3acc}}
+:root[data-theme="dark"]{--bg:#14132a;--ink:#ecebfa;--muted:#a3a2bd;--line:#34325a;--white:#1d1c3a;--soft:#2a2750;--hdr:#1d1c3acc}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle at 10% 0%,#e9e3ff 0,transparent 32%),var(--bg);color:var(--ink);min-height:100vh}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body{background:radial-gradient(circle at 10% 0%,#2b2460 0,transparent 32%),var(--bg)}}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--hdr);backdrop-filter:blur(12px)}
+header{height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 max(6%,calc((100% - 1120px)/2));background:var(--hdr);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}.brand{font-size:23px;font-weight:850;letter-spacing:-1px}.brand span{color:var(--purple)}.tag{font-size:13px;color:var(--muted)}
+main{max-width:1050px;margin:48px auto;padding:0 22px}.hero{text-align:center;margin-bottom:34px}.eyebrow{display:inline-block;background:#ebe7ff;color:#624bd1;border-radius:30px;padding:7px 13px;font-size:12px;font-weight:750;letter-spacing:.5px}.hero h1{font-size:clamp(34px,6vw,54px);letter-spacing:-2px;margin:15px 0 8px}.hero p{color:var(--muted);margin:0;font-size:16px}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:24px;box-shadow:0 18px 55px #42348c12;padding:clamp(22px,4vw,38px);max-width:760px;margin:auto}.categories{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin:22px 0}.category{border:1.5px solid var(--line);background:var(--white);border-radius:15px;padding:16px;text-align:left;cursor:pointer;transition:.2s;color:var(--ink);font:inherit}.category:hover,.category.active{border-color:var(--purple);background:var(--soft);transform:translateY(-2px)}.category b{display:block;font-size:15px;margin-bottom:4px}.category small{color:var(--muted)}.icon{font-size:22px;margin-bottom:8px;display:block}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.select{padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--white);color:var(--ink);font:inherit;flex:1;min-width:150px}.btn{border:0;background:linear-gradient(135deg,var(--purple),var(--purple2));color:white;padding:14px 23px;border-radius:13px;font-weight:750;font-size:15px;cursor:pointer;box-shadow:0 8px 18px #7057e833;transition:.2s;font-family:inherit}.btn:hover{transform:translateY(-2px);filter:brightness(1.04)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}.startrow{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-top:24px}.note{font-size:12px;color:var(--muted);line-height:1.5}
+#quiz,#result{display:none}.quiztop{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}.pill{background:#f2efff;color:#604bd0;padding:9px 13px;border-radius:30px;font-size:13px;font-weight:750}.timer{background:#fff2e9;color:#bd682a}.progress{height:8px;background:var(--line);border-radius:20px;overflow:hidden;margin-bottom:27px}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--purple),#b09eff);transition:width .3s}.qmeta{font-size:13px;color:var(--muted);font-weight:650}.question{font-size:clamp(21px,3.5vw,27px);line-height:1.35;margin:10px 0 23px;letter-spacing:-.5px}.answers{display:grid;gap:12px}.answer{display:flex;align-items:center;gap:13px;padding:15px 17px;border:1.5px solid var(--line);border-radius:14px;background:var(--white);cursor:pointer;text-align:left;font:inherit;color:var(--ink);transition:.18s}.answer:hover{border-color:#aa9af7;background:var(--soft)}.answer.selected{border-color:var(--purple);background:var(--soft)}.letter{width:30px;height:30px;border-radius:9px;background:var(--line);display:grid;place-items:center;font-weight:800;color:var(--muted);flex-shrink:0}.answer.selected .letter{background:var(--purple);color:white}.quizbottom{display:flex;justify-content:space-between;align-items:center;margin-top:25px;gap:12px}.feedback{font-size:13px;color:var(--muted)}.result{text-align:center}.scorecircle{width:142px;height:142px;border-radius:50%;margin:20px auto;background:conic-gradient(var(--purple) var(--score),var(--line) 0);display:grid;place-items:center;position:relative}.scorecircle:before{content:"";position:absolute;inset:11px;background:var(--white);border-radius:50%}.scoreinside{position:relative}.scoreinside strong{font-size:34px;display:block}.scoreinside small{color:var(--muted)}.result h2{font-size:30px;margin:10px 0}.stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:22px 0}.stat{background:var(--soft);border:1px solid var(--line);padding:13px 20px;border-radius:13px;min-width:105px}.stat b{display:block;font-size:21px}.stat small{color:var(--muted)}.review{margin-top:25px;text-align:left;border-top:1px solid var(--line);padding-top:20px}.reviewitem{padding:13px 0;border-bottom:1px solid var(--line);font-size:14px}.correct{color:var(--green);font-weight:700}.wrong{color:var(--red);font-weight:700}.hidden{display:none!important}footer{text-align:center;color:#9695a9;font-size:12px;padding:30px 15px}
+@media(max-width:560px){header{height:65px}.tag{display:none}main{margin:30px auto}.categories{grid-template-columns:1fr 1fr}.category{padding:13px}.startrow{align-items:stretch;flex-direction:column}.startrow .btn{width:100%}.quizbottom .btn{padding:12px 16px}}
+</style>
+</head>
+<body>
+<header><div class="brand">Quiz<span>ly</span></div><div class="tag">Learn something new every day</div></header>
+<main>
+  <section class="hero" id="hero">
+    <span class="eyebrow">DAILY QUIZ CHALLENGE</span>
+    <h1>Test your knowledge</h1>
+    <p>Pick a category, answer the questions, and see how you score.</p>
+  </section>
+
+  <div class="panel">
+    <div id="start">
+      <b>Choose a category</b>
+      <div class="categories" id="cats"></div>
+      <div class="row">
+        <select class="select" id="count" aria-label="Number of questions">
+          <option value="3">3 questions</option>
+          <option value="5" selected>5 questions</option>
+          <option value="6">6 questions</option>
+        </select>
+      </div>
+      <div class="startrow">
+        <div class="note">Questions are shuffled each time. Your score is shown at the end with a full answer review.</div>
+        <button class="btn" id="go" disabled>Start quiz</button>
+      </div>
+    </div>
+
+    <div id="quiz">
+      <div class="quiztop"><span class="pill" id="catpill"></span><span class="pill timer" id="timer">0:00</span></div>
+      <div class="progress"><div class="bar" id="bar"></div></div>
+      <div class="qmeta" id="qmeta"></div>
+      <h2 class="question" id="qtext"></h2>
+      <div class="answers" id="answers"></div>
+      <div class="quizbottom"><span class="feedback" id="fb">Select an answer to continue</span><button class="btn" id="next" disabled>Next</button></div>
+    </div>
+
+    <div id="result" class="result">
+      <div class="scorecircle" id="circle"><div class="scoreinside"><strong id="pct">0%</strong><small>score</small></div></div>
+      <h2 id="rtitle"></h2>
+      <div class="note" id="rsub"></div>
+      <div class="stats" id="stats"></div>
+      <button class="btn" id="again">Play again</button>
+      <div class="review" id="review"></div>
+    </div>
+  </div>
+</main>
+<footer>© Quizly · Made for curious minds</footer>
+
+<script>
+const BANK={
+Science:{icon:"🔬",desc:"Space, bodies & matter",q:[
+["Which planet is known as the Red Planet?",["Venus","Mars","Jupiter","Mercury"],1],
+["What gas do plants absorb from the air?",["Oxygen","Nitrogen","Carbon dioxide","Helium"],2],
+["What is the chemical symbol for gold?",["Au","Ag","Gd","Go"],0],
+["How many bones are in the adult human body?",["186","206","226","256"],1],
+["What is the hardest natural substance?",["Quartz","Steel","Diamond","Granite"],2],
+["What force keeps us on the ground?",["Magnetism","Friction","Gravity","Inertia"],2]]},
+History:{icon:"🏛️",desc:"People, empires & events",q:[
+["Who was the first President of the United States?",["Abraham Lincoln","George Washington","Thomas Jefferson","John Adams"],1],
+["In which year did World War II end?",["1943","1945","1947","1950"],1],
+["Which ancient civilization built the pyramids of Giza?",["Romans","Greeks","Egyptians","Persians"],2],
+["Who painted the Mona Lisa?",["Michelangelo","Raphael","Leonardo da Vinci","Donatello"],2],
+["The Berlin Wall fell in which year?",["1985","1989","1991","1995"],1],
+["Which empire was ruled by Julius Caesar?",["Ottoman","Roman","Mongol","Byzantine"],1]]},
+Geography:{icon:"🌍",desc:"Countries, rivers & maps",q:[
+["What is the capital of Japan?",["Osaka","Kyoto","Tokyo","Nagoya"],2],
+["Which is the longest river in Africa?",["Congo","Niger","Nile","Zambezi"],2],
+["Which continent is the Sahara Desert in?",["Asia","Africa","Australia","South America"],1],
+["What is the smallest country in the world?",["Monaco","Vatican City","Malta","Liechtenstein"],1],
+["Mount Everest lies on the border of Nepal and which country?",["India","Bhutan","China","Pakistan"],2],
+["Which ocean is the largest?",["Atlantic","Indian","Arctic","Pacific"],3]]},
+Technology:{icon:"💻",desc:"Computers, web & gadgets",q:[
+["What does HTML stand for?",["HyperText Markup Language","High Tech Modern Language","Home Tool Markup Language","Hyperlink Text Mode Language"],0],
+["Who co-founded Apple with Steve Jobs?",["Bill Gates","Steve Wozniak","Larry Page","Elon Musk"],1],
+["What does CPU stand for?",["Central Processing Unit","Computer Personal Unit","Core Program Utility","Central Power Unit"],0],
+["Which language runs natively in web browsers?",["Python","C++","JavaScript","Ruby"],2],
+["What does “Wi-Fi” commonly provide?",["Wireless networking","Wired charging","Voice calls only","Screen mirroring only"],0],
+["Which company created the Android OS (now owned by Google)?",["Android Inc.","Nokia","Samsung","Sun Microsystems"],0]]}
+};
+const $=id=>document.getElementById(id);
+let cat=null,qs=[],idx=0,sel=null,answers=[],t0=0,tick=null;
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const fmt=s=>Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
+const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+
+Object.entries(BANK).forEach(([name,c])=>{
+  const b=document.createElement("button");b.className="category";
+  b.innerHTML=`<span class="icon">${c.icon}</span><b>${name}</b><small>${c.desc}</small>`;
+  b.onclick=()=>{cat=name;document.querySelectorAll(".category").forEach(x=>x.classList.remove("active"));b.classList.add("active");$("go").disabled=false};
+  $("cats").appendChild(b);
+});
+
+$("go").onclick=()=>{
+  const n=+$("count").value;
+  qs=shuffle(BANK[cat].q).slice(0,n).map(([q,o,a])=>{
+    const opts=shuffle(o.map((t,i)=>({t,c:i===a})));return{q,opts}});
+  idx=0;answers=[];t0=Date.now();
+  $("start").style.display="none";$("hero").classList.add("hidden");$("quiz").style.display="block";
+  $("catpill").textContent=BANK[cat].icon+" "+cat;
+  clearInterval(tick);tick=setInterval(()=>$("timer").textContent="⏱ "+fmt(Math.floor((Date.now()-t0)/1000)),500);
+  show();
+};
+
+function show(){
+  const q=qs[idx];sel=null;
+  $("qmeta").textContent=`Question ${idx+1} of ${qs.length}`;
+  $("bar").style.width=(idx/qs.length*100)+"%";
+  $("qtext").textContent=q.q;
+  $("answers").innerHTML="";
+  q.opts.forEach((o,i)=>{
+    const b=document.createElement("button");b.className="answer";
+    b.innerHTML=`<span class="letter">${"ABCD"[i]}</span><span>${esc(o.t)}</span>`;
+    b.onclick=()=>{sel=i;document.querySelectorAll(".answer").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");$("next").disabled=false;$("fb").textContent="Ready when you are"};
+    $("answers").appendChild(b);
+  });
+  $("next").disabled=true;$("fb").textContent="Select an answer to continue";
+  $("next").textContent=idx===qs.length-1?"Finish":"Next";
+}
+
+$("next").onclick=()=>{
+  answers.push(sel);
+  if(++idx<qs.length)show();else finish();
+};
+
+function finish(){
+  clearInterval(tick);
+  const secs=Math.floor((Date.now()-t0)/1000);
+  const right=qs.filter((q,i)=>q.opts[answers[i]].c).length;
+  const pct=Math.round(right/qs.length*100);
+  $("quiz").style.display="none";$("result").style.display="block";
+  $("circle").style.setProperty("--score",pct+"%");
+  $("pct").textContent=pct+"%";
+  $("rtitle").textContent=pct>=80?"Outstanding! 🎉":pct>=50?"Nice work! 👏":"Keep practicing 💪";
+  $("rsub").textContent=`You answered ${right} of ${qs.length} correctly in ${cat}.`;
+  $("stats").innerHTML=`<div class="stat"><b>${right}</b><small>Correct</small></div><div class="stat"><b>${qs.length-right}</b><small>Wrong</small></div><div class="stat"><b>${fmt(secs)}</b><small>Time</small></div>`;
+  $("review").innerHTML="<b>Review</b>"+qs.map((q,i)=>{
+    const ok=q.opts[answers[i]].c,right=q.opts.find(o=>o.c).t;
+    return `<div class="reviewitem">${i+1}. ${esc(q.q)}<br><span class="${ok?"correct":"wrong"}">${ok?"✓ Correct":"✗ Your answer: "+esc(q.opts[answers[i]].t)}</span>${ok?"":` · <span class="correct">Answer: ${esc(right)}</span>`}</div>`}).join("");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+$("again").onclick=()=>{
+  $("result").style.display="none";$("start").style.display="block";$("hero").classList.remove("hidden");
+};
+</script>
+</body>
+</html>
